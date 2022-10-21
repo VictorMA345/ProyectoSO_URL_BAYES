@@ -1,33 +1,31 @@
-from unicodedata import category
 import pandas as pd
-import matplotlib.pyplot as plt
-from math import sqrt
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.naive_bayes import MultinomialNB 
+import inspect
 
-def separar_por_categoria(dataset,categorias):
-	separated = dict()
-	for categoría in categorias:
-		separated[categoría] = dataset[dataset["Category"] == categoría]
-	return separated
+#dataset from kaggle  
+recommendation_dataset = pd.read_csv('dmoz.csv')
+recommendation_dataset = recommendation_dataset[recommendation_dataset['desc'].notna()]#remove nan rows from the dataset 
 
-def obtenerCategorias(df):
-    categorias = []
-    df_categories = df["Category"].drop_duplicates()
-    for x in df_categories:
-        categorias.append(x)
-    return categorias
+#importing multinominal naive bayes 
 
-def media(numeros):
-	return sum(numeros) / len(numeros)
+#splitting train and test data
+X_train, X_test, y_train, y_test = train_test_split(recommendation_dataset['desc'], recommendation_dataset['category'], random_state = 5)
 
-def deviaciónEstandar(numeros):
-	promedio = media(numeros)
-	varianza = sum([x - promedio] for x in numeros) / float(len(numeros) - 1)
-	return sqrt(varianza)
+count_vect = CountVectorizer()
 
-nombres = ['URL','Category']
+X_train_counts = count_vect.fit_transform(X_train)
 
+tfidf_transformer = TfidfTransformer()
 
-url_Dataset = pd.read_csv("./URL Classification.csv", names = nombres ,na_filter= False)
-categorias = obtenerCategorias(url_Dataset)
+X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
 
-categorias_separadas = separar_por_categoria(url_Dataset,categorias)
+datos = [['Nirvana - Smells Like Teen Spirit (Official Music Video) - YouTube'], [""]]
+
+classifier = MultinomialNB().fit(X_train_tfidf, y_train)#train the train data with MultinomialNB model
+
+result = classifier.predict(count_vect.transform([str(datos[1][0])]))
+
+print(inspect.getsource( tfidf_transformer.fit_transform))
