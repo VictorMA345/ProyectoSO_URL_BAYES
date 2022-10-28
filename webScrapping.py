@@ -3,6 +3,13 @@ import requests
 from GetData import *
 import pandas as pd
 import re
+#Multithreading
+import threading
+import time
+
+
+
+
 def extract_url_details(url, count=0):
     content = []
     title2 = []
@@ -11,6 +18,7 @@ def extract_url_details(url, count=0):
         res = requests.get(url, headers=header, timeout=30)
     except:  
         return 
+
     if (res.status_code == 200):
         try:         
             soup = BeautifulSoup(res.content, "lxml")
@@ -28,10 +36,33 @@ def extract_url_details(url, count=0):
     else: 
         return webScrap
 
-url_dataSet = getUrls()
-for x in url_dataSet:
-    data = extract_url_details(x)
-    if data != None:
-        print(data)
+
+def getData():
+    print("Start Threading")
+    url_dataSet = getUrls()
+    hilos=list()
+    time.sleep(2)
+    for x in url_dataSet:
+        #data = extract_url_details(x)
+        for i in range(3): #cantidad de hilos utilizados
+            t=threading.Thread(target=extract_url_details(x))
+            hilos.append(t)
+            t.start()
+
+        if data != None:
+            print(data)
+
+    print("Final Threading")
+threads=list()
+
+
+
+#for i in range(5):
+    #t=threading.Thread(target=getData)
+    #threads.append(t)
+    #t.start()
+#for t in threads:
+    #t.join()
+
 
 
