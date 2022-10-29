@@ -4,7 +4,7 @@ import json
 from flask import Flask, render_template, redirect, url_for,request
 app = Flask(__name__)
 
-containers=[('Crunchyroll','Anime'),('Youtube','Videos'),('Twitter','Red Social'),('Facebook','Red Social'),('RedTube','Red Social')]
+containers=[('Crunchyroll','Anime'),('Youtube','Videos'),('Twitter','Red Social'),('Facebook','Red Social')]
 pages=[{"page":"namepage", "Column01":"data", "Column02":"data"},{"page":"namepage2", "Column01":"data", "Column02":"data"}]
 
 @app.route("/",methods=["POST","GET"])
