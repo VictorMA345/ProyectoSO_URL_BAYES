@@ -103,7 +103,7 @@ El proceso de Instalación de Beautiful Soup es sencillo y es meramente la ejecu
 **Código de Instalación:** $pip install beautifulsoup4
 
 ## Tiempos de Respuesta
-Los tiempos de respuesta lanzaron un tiempo aproximado de el Web Scraping dio un tiempo de ejecucion de 476.18723583221436  segundos mientras que el Bayes nos arrojo un tiempo de 0.7699155807495117  Segundos
+Los tiempos de respuesta lanzaron un tiempo aproximado de el Web Scraping dio un tiempo de ejecucion de 476.18723583221436  segundos mientras que el Bayes nos arrojo un tiempo de 0.7699155807495117  Segundos todo esto en una prueba de 300 paginas. Como se menciono anteriormente entre mas paginas mejor.
 ## Resultados
 Para el modelado de los datos que se obtuvieron tanto de las categorias como tambien de las paginas web recolectadas mediante el proceso de la ejecucion de software se hizo uso de la herramienta Flask para modelar la pagina web
 que demostrara los datos de manera grafica y interactiva para el usuario, el usuario puede seleccionar la categoria que se desea observar y al darle click se le redireccionara a los datos por pagina que tengan relacion con dicha categoria.
